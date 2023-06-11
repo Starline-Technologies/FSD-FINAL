@@ -1,0 +1,65 @@
+/* styles.css */
+#root{
+  /* background-image: url('./1.jpg'); */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.shape{
+
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-image: url('./1.jpg');
+}
+
+.signin-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+  }
+  
+  .signin-form form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+  }
+  
+  .signin-form input[type='email'],
+  .signin-form input[type='password'] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .signin-form Button {
+    display: grid;
+    gap: 1rem;
+    padding: 0.5rem;
+    background-color: #007bff;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  
+  .signin-form Button:hover {
+    background-color: #0056b3;
+  }
+  
+
+  
