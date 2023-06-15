@@ -3,7 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
-import { LockOutlined } from '@material-ui/icons';
+import { Email, LockOutlined } from '@material-ui/icons';
 import axios from 'axios';
 import './SignInStyles.css';
 
@@ -15,7 +15,10 @@ const SignInForm = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('createProfile', { email, password });
+      const response = await axios.post('http://localhost:8080/api/v1/createProfile', {
+        email: email,
+        password:password
+      });
       // Handle successful login here
       console.log(response.data); // Assuming the response contains the created profile data
     } catch (error) {
@@ -25,6 +28,7 @@ const SignInForm = () => {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
+    
   };
 
   const handlePasswordChange = (event) => {

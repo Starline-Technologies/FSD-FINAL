@@ -2,15 +2,16 @@ const Profile = require('../models/ProfileModel');
 
 // Controller action to create a new user profile
 const createProfile = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const profile = new Profile({ email, password });
-    await profile.save();
-    res.status(201).json({ success: true, data: profile });
-  } catch (error) {
-    res.status(500).json({ success: false, error: error.message });
-  }
-};
+    try {
+      const { name, place, age, email, password, education, phoneNumber } = req.body;
+      const profile = new Profile({ name, place, age, email, password, education, phoneNumber });
+      await profile.save();
+      res.status(201).json({ success: true, data: profile });
+    } catch (error) {
+      res.status(500).json({ success: false, error: error.message });
+    }
+  };
+  
 
 // Controller action to retrieve all user profiles
 const getProfiles = async (req, res) => {
