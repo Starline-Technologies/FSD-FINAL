@@ -4,19 +4,36 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import { Redirect } from 'react-router-dom';
+import backgroundImage from './4.jpg';
+import { red, yellow } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    padding: theme.spacing(2),
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    minHeight: '100vh',
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize:'size'
   },
   form: {
     display: 'flex',
     flexDirection: 'column',
     maxWidth: '300px',
-    margin: '0 auto',
+    width: '100%',
+    padding: theme.spacing(2),
+    backgroundColor: '#ffffff',
+    borderRadius: '4px',
+    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+    marginBottom:'100px'
+    
   },
   textField: {
     marginBottom: theme.spacing(2),
+  },
+  loginButton: {
+    marginTop: theme.spacing(2),
   },
 }));
 
@@ -53,7 +70,8 @@ const AdminPage = () => {
 
   return (
     <div className={classes.root}>
-      <h1>Admin Page</h1>
+      <h1 style={{color:'white'}}>Login</h1>
+      <br />
       <form className={classes.form}>
         {showAlert && (
           <Alert severity="error" onClose={() => setShowAlert(false)}>
@@ -75,7 +93,12 @@ const AdminPage = () => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <Button variant="contained" color="primary" onClick={handleLogin}>
+        <Button
+          className={classes.loginButton}
+          variant="contained"
+          color="primary"
+          onClick={handleLogin}
+        >
           Login
         </Button>
       </form>
