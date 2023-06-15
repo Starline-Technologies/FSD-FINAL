@@ -13,6 +13,8 @@ import Expenses from './Components/Expenses/Expenses';
 import { useGlobalContext } from './context/globalContext';
 import SignupPage from './Components/Authentication/SignUp';
 import SignInForm from './Components/Authentication/SignInForm';
+import AdminPage from './Components/Authentication/Admin';
+import AdminDas from './Components/Authentication/AdminDas';
 
 import Navbar from './Components/Authentication/NavBar';
 
@@ -53,6 +55,9 @@ function App() {
         <Route path="/signin">
           <SignInForm />
         </Route>
+        <Route path="/admin" exact component={AdminPage} />
+        <Route path="/admin/dashboard" component={AdminDas} />
+
       
         <Route path="/">
           <DashboardStyled bg={bg} className="App">
