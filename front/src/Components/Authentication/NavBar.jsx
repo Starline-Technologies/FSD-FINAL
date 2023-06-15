@@ -37,9 +37,9 @@ const Navbar = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={(event) => handleRedirect(event, '/signin')}>Login</MenuItem>
+          <MenuItem onClick={(event) => handleRedirect(event, '/')}>Login</MenuItem>
           <MenuItem onClick={(event) => handleRedirect(event, '/signup')}>Sign Up</MenuItem>
-          <MenuItem onClick={(event) => handleRedirect(event, '/')}>Dashboard</MenuItem>
+          {/* <MenuItem onClick={(event) => handleRedirect(event, '/')}>Dashboard</MenuItem> */}
           <MenuItem onClick={(event) => handleRedirect(event, '/admin')}>Admin Login</MenuItem>
         </Menu>
         <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>

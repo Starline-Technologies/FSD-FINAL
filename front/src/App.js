@@ -8,14 +8,11 @@ import Navigation from './Components/Navigation/Navigation';
 import Dashboard from './Components/Dashboard/Dashboard';
 import Income from './Components/Income/Income';
 import Expenses from './Components/Expenses/Expenses';
-// import SignUp from './Components/SignUp/SignUp';
-// import SignIn from './Components/SignIn/SignIn';
 import { useGlobalContext } from './context/globalContext';
 import SignupPage from './Components/Authentication/SignUp';
 import SignInForm from './Components/Authentication/SignInForm';
 import AdminPage from './Components/Authentication/Admin';
 import AdminDas from './Components/Authentication/AdminDas';
-
 import Navbar from './Components/Authentication/NavBar';
 
 function App() {
@@ -44,31 +41,25 @@ function App() {
   }, []);
 
   return (
-
-    
     <Router>
       <Navbar />
       <Switch>
-      <Route path="/signup">
+        <Route path="/signup">
           <SignupPage />
-        </Route>
-        <Route path="/signin">
-          <SignInForm />
         </Route>
         <Route path="/admin" exact component={AdminPage} />
         <Route path="/admin/dashboard" component={AdminDas} />
-
-      
-        <Route path="/">
+        <Route path="/dashboard">
           <DashboardStyled bg={bg} className="App">
             {orbMemo}
             <MainLayout>
               <Navigation active={active} setActive={setActive} />
-              <main>
-                {displayData()}
-              </main>
+              <main>{displayData()}</main>
             </MainLayout>
           </DashboardStyled>
+        </Route>
+        <Route path="/">
+          <SignInForm />
         </Route>
       </Switch>
     </Router>

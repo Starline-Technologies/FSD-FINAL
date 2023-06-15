@@ -10,17 +10,37 @@ import './SignInStyles.css';
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/createProfile', {
-        email: email,
-        password:password
-      });
-      // Handle successful login here
-      console.log(response.data); // Assuming the response contains the created profile data
+      const response = await axios.get('http://localhost:8080/api/v1/getProfiles');
+
+      const profileData = response.data;
+      const profiles = Object.values(profileData); // Convert object values to an array
+
+      let matchFound = false;
+     
+
+      // Iterate through each profile
+      for (const profile of profiles[1]) {
+        console.log(profile);
+        console.log(profile.email);
+        if (profile.email === email && profile.password === password) {
+          console.log('matched');
+          matchFound = true;
+          break;
+        }
+      }
+
+      if (matchFound) {
+        // Redirect to the dashboard or perform any other action
+        window.location.href = '/dashboard'; // Change '/dashboard' to your desired URL
+      } else {
+        setLoginError(true); // Set login error state to display the error message
+      }
     } catch (error) {
       console.error('Error signing in:', error);
     }
@@ -28,11 +48,12 @@ const SignInForm = () => {
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-    
+    setLoginError(false); // Reset login error state when email changes
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+    setLoginError(false); // Reset login error state when password changes
   };
 
   return (
@@ -58,6 +79,7 @@ const SignInForm = () => {
                 value={password}
                 onChange={handlePasswordChange}
               />
+              {loginError && <p className="error-message">Invalid credentials. Please try again.</p>}
               <Button type="submit" variant="contained" color="primary">
                 Sign In
               </Button>
