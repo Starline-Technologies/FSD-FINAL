@@ -8,14 +8,12 @@ import axios from 'axios';
 import './SignInStyles.css';
 import { AuthContext } from './AuthContext';
 
-
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
   const [loading, setLoading] = useState(false); // Added loading state
   const { login } = useContext(AuthContext);
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -29,7 +27,7 @@ const SignInForm = () => {
       const profiles = Object.values(profileData); // Convert object values to an array
 
       let matchFound = false;
-    
+      let loggedInPerson = null; // Define loggedInPerson variable
 
       // Iterate through each profile
       for (const profile of profiles[1]) {
@@ -43,16 +41,16 @@ const SignInForm = () => {
             age: profile.age,
             email: profile.email,
             education: profile.education,
-            phoneNumber: profile.phoneNumber
-        };
-        break;
+            phoneNumber: profile.phoneNumber,
+          };
+          break;
+        }
       }
-    }
 
       if (matchFound) {
-        // Redirect to the dashboard with email as query parameter
-        login(loggedInPerson);
-        console.log("Signed In")
+        // Redirect to the dashboard with email as a query parameter
+        login(loggedInPerson); // Save loggedInPerson to AuthContext
+        console.log('Signed In');
 
         window.location.href = `/dashboard?email=${encodeURIComponent(email)}`; // Change '/dashboard' to your desired URL
       } else {
