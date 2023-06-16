@@ -11,18 +11,20 @@ const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
+  const [loading, setLoading] = useState(false); // Added loading state
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
+      setLoading(true); // Start the loading animation
+
       const response = await axios.get('http://localhost:8080/api/v1/getProfiles');
 
       const profileData = response.data;
       const profiles = Object.values(profileData); // Convert object values to an array
 
       let matchFound = false;
-     
 
       // Iterate through each profile
       for (const profile of profiles[1]) {
@@ -43,6 +45,8 @@ const SignInForm = () => {
       }
     } catch (error) {
       console.error('Error signing in:', error);
+    } finally {
+      setLoading(false); // Stop the loading animation
     }
   };
 
@@ -80,8 +84,8 @@ const SignInForm = () => {
                 onChange={handlePasswordChange}
               />
               {loginError && <p className="error-message">Invalid credentials. Please try again.</p>}
-              <Button type="submit" variant="contained" color="primary">
-                Sign In
+              <Button type="submit" variant="contained" color="primary" disabled={loading}>
+                {loading ? 'Loading...' : 'Sign In'}
               </Button>
             </FormControl>
           </Grid>
