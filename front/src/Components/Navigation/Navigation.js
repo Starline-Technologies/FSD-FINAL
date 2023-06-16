@@ -129,4 +129,6 @@ const NavStyled = styled.nav`
   }
 `;
 
+export default NavStyled;
+
 export default Navigation
