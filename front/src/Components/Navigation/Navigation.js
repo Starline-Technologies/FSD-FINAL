@@ -4,6 +4,7 @@ import images from '../../img/images.png'
 import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
 import { AuthContext } from '../Authentication/AuthContext';
+import { Link } from 'react-router-dom';
 
 function Navigation({active, setActive}) {
     const { loggedInPerson } = useContext(AuthContext);
@@ -38,7 +39,9 @@ function Navigation({active, setActive}) {
             </ul>
             <div className="bottom-nav">
                 <li>
+                <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
                     {signout} Sign Out
+                </Link>
                 </li>
             </div>
         </NavStyled>
