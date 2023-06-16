@@ -12,27 +12,24 @@ const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
-  const [loading, setLoading] = useState(false); // Added loading state
+  const [loading, setLoading] = useState(false);
   const { login } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      setLoading(true); // Start the loading animation
+      setLoading(true);
 
       const response = await axios.get('http://localhost:8080/api/v1/getProfiles');
 
       const profileData = response.data;
-      const profiles = Object.values(profileData); // Convert object values to an array
+      const profiles = Object.values(profileData);
 
       let matchFound = false;
-      let loggedInPerson = null; // Define loggedInPerson variable
+      let loggedInPerson = null;
 
-      // Iterate through each profile
       for (const profile of profiles[1]) {
-        console.log(profile);
-        console.log(profile.email);
         if (profile.email === email && profile.password === password) {
           matchFound = true;
           loggedInPerson = {
@@ -48,29 +45,34 @@ const SignInForm = () => {
       }
 
       if (matchFound) {
-        // Redirect to the dashboard with email as a query parameter
-        login(loggedInPerson); // Save loggedInPerson to AuthContext
-        console.log('Signed In');
+        login(loggedInPerson);
 
-        window.location.href = `/dashboard?email=${encodeURIComponent(email)}`; // Change '/dashboard' to your desired URL
+        const encodedEmail = encodeURIComponent(loggedInPerson.email);
+        const encodedAge = encodeURIComponent(loggedInPerson.age);
+        const encodedPlace = encodeURIComponent(loggedInPerson.place);
+        const encodedName = encodeURIComponent(loggedInPerson.name);
+        const encodedEducation = encodeURIComponent(loggedInPerson.education);
+        const encodedPhoneNumber = encodeURIComponent(loggedInPerson.phoneNumber);
+
+        window.location.href = `/dashboard?email=${encodedEmail}&age=${encodedAge}&place=${encodedPlace}&name=${encodedName}&education=${encodedEducation}&phoneNumber=${encodedPhoneNumber}`;
       } else {
-        setLoginError(true); // Set login error state to display the error message
+        setLoginError(true);
       }
     } catch (error) {
       console.error('Error signing in:', error);
     } finally {
-      setLoading(false); // Stop the loading animation
+      setLoading(false);
     }
   };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
-    setLoginError(false); // Reset login error state when email changes
+    setLoginError(false);
   };
 
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
-    setLoginError(false); // Reset login error state when password changes
+    setLoginError(false);
   };
 
   return (

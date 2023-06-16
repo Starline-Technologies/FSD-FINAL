@@ -15,6 +15,7 @@ import AdminPage from './Components/Authentication/Admin';
 import AdminDas from './Components/Authentication/AdminDas';
 import Navbar from './Components/Authentication/NavBar';
 import { AuthProvider } from './Components/Authentication/AuthContext';
+import Profile from './Components/Authentication/profile';
 
 function App() {
   const [active, setActive] = useState(1);
@@ -50,6 +51,7 @@ function App() {
           <SignupPage />
         </Route>
         <Route path="/admin" exact component={AdminPage} />
+        <Route path="/profile" exact component={Profile} />
         <Route path="/admin/dashboard" exact component={AdminDas} />
         <Route path="/dashboard">
           <DashboardStyled bg={bg} className="App">
