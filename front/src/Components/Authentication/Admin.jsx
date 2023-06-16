@@ -3,9 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
-import { Redirect } from 'react-router-dom';
 import backgroundImage from './4.jpg';
-import { red, yellow } from '@material-ui/core/colors';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -15,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     minHeight: '100vh',
     backgroundImage: `url(${backgroundImage})`,
-    backgroundSize:'size'
+    backgroundSize: 'size',
   },
   form: {
     display: 'flex',
@@ -26,8 +25,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: '#ffffff',
     borderRadius: '4px',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    marginBottom:'100px'
-    
+    marginBottom: '100px',
   },
   textField: {
     marginBottom: theme.spacing(2),
@@ -37,12 +35,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AdminPage = () => {
+const Admin = () => {
   const classes = useStyles();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showAlert, setShowAlert] = useState(false);
-  const [redirectToDashboard, setRedirectToDashboard] = useState(false);
+  const history = useHistory();
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -52,27 +50,25 @@ const AdminPage = () => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = () => {
+  const handleLogin = (event) => {
+    event.preventDefault(); // Prevent form submission and page reload
+
     // Check if email and password match the default values
     if (email === 'admin@gmail.com' && password === 'password') {
       // Perform successful login action here
-      setRedirectToDashboard(true);
+      history.push('/admin/dashboard'); // Redirect to /admin/dashboard
+      window.location.reload()
     } else {
       // Show alert for incorrect login credentials
       setShowAlert(true);
     }
   };
 
-  if (redirectToDashboard) {
-    // Redirect to the admin dashboard
-    return <Redirect to="/admin/dashboard" />;
-  }
-
   return (
     <div className={classes.root}>
-      <h1 style={{color:'white'}}>Login</h1>
+      <h1 style={{ color: 'white' }}>Login</h1>
       <br />
-      <form className={classes.form}>
+      <form className={classes.form} onSubmit={handleLogin}>
         {showAlert && (
           <Alert severity="error" onClose={() => setShowAlert(false)}>
             Email and password don't match.
@@ -97,7 +93,7 @@ const AdminPage = () => {
           className={classes.loginButton}
           variant="contained"
           color="primary"
-          onClick={handleLogin}
+          type="submit"
         >
           Login
         </Button>
@@ -106,4 +102,4 @@ const AdminPage = () => {
   );
 };
 
-export default AdminPage;
+export default Admin;

@@ -14,6 +14,7 @@ import SignInForm from './Components/Authentication/SignInForm';
 import AdminPage from './Components/Authentication/Admin';
 import AdminDas from './Components/Authentication/AdminDas';
 import Navbar from './Components/Authentication/NavBar';
+import { AuthProvider } from './Components/Authentication/AuthContext';
 
 function App() {
   const [active, setActive] = useState(1);
@@ -41,6 +42,7 @@ function App() {
   }, []);
 
   return (
+    <AuthProvider>
     <Router>
       <Navbar />
       <Switch>
@@ -48,13 +50,15 @@ function App() {
           <SignupPage />
         </Route>
         <Route path="/admin" exact component={AdminPage} />
-        <Route path="/admin/dashboard" component={AdminDas} />
+        <Route path="/admin/dashboard" exact component={AdminDas} />
         <Route path="/dashboard">
           <DashboardStyled bg={bg} className="App">
             {orbMemo}
             <MainLayout>
+              <AuthProvider>
               <Navigation active={active} setActive={setActive} />
               <main>{displayData()}</main>
+              </AuthProvider>
             </MainLayout>
           </DashboardStyled>
         </Route>
@@ -63,6 +67,7 @@ function App() {
         </Route>
       </Switch>
     </Router>
+    </AuthProvider>
   );
 }
 

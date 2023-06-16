@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(2),
     textAlign: 'center',
     overflow: 'auto',
-    maxHeight: '1000px',
+    maxHeight: '500px',
   },
   tableContainer: {
     width: '100%',
@@ -26,10 +26,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginBottom: theme.spacing(1),
   },
-  userInfo: {
-    flex: 1,
-    marginRight: theme.spacing(2),
-  },
 }));
 
 const AdminDas = () => {
@@ -38,17 +34,20 @@ const AdminDas = () => {
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    // Fetch profiles from the API
+    // Fetch profiles from the API initially
     fetchProfiles();
-    
-  }, []);
-  window.location.reload();
+
+    // Set up an interval to fetch profiles every 10 seconds (adjust as needed)
+    const interval = setInterval(fetchProfiles, 10000);
+
+    // Clear the interval on component unmount
+    return () => clearInterval(interval);
+  }, [profiles]);
 
   const fetchProfiles = async () => {
     try {
-      
-      const response = await axios.get('http://localhost:8080/api/v1/getProfiles'); // Replace with your backend API endpoint to fetch profiles
-      const profilesArray = Object.values(response.data); // Convert the profiles object into an array
+      const response = await axios.get('http://localhost:8080/api/v1/getProfiles');
+      const profilesArray = Object.values(response.data);
       setProfiles(profilesArray);
     } catch (error) {
       console.error('Error fetching profiles:', error);
@@ -58,10 +57,7 @@ const AdminDas = () => {
   const deleteProfile = async (profileId) => {
     try {
       await axios.delete(`http://localhost:8080/api/v1/deleteProfile/${profileId}`);
-      console.log(profileId)
-       // Replace with your backend API endpoint to delete a profile
       setShowAlert(true);
-      // Refresh the profile list
       fetchProfiles();
     } catch (error) {
       console.error('Error deleting profile:', error);

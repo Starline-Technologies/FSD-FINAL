@@ -1,11 +1,13 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import styled from 'styled-components'
 import images from '../../img/images.png'
 import { signout } from '../../utils/Icons'
 import { menuItems } from '../../utils/menuItems'
+import { AuthContext } from '../Authentication/AuthContext';
 
 function Navigation({active, setActive}) {
-    
+    const { loggedInPerson } = useContext(AuthContext);
+    console.log(loggedInPerson)
     return (
         <NavStyled>
             <div className="user-con">

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
@@ -6,12 +6,16 @@ import Button from '@material-ui/core/Button';
 import { Email, LockOutlined } from '@material-ui/icons';
 import axios from 'axios';
 import './SignInStyles.css';
+import { AuthContext } from './AuthContext';
+
 
 const SignInForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState(false);
   const [loading, setLoading] = useState(false); // Added loading state
+  const { login } = useContext(AuthContext);
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -25,20 +29,31 @@ const SignInForm = () => {
       const profiles = Object.values(profileData); // Convert object values to an array
 
       let matchFound = false;
+    
 
       // Iterate through each profile
       for (const profile of profiles[1]) {
         console.log(profile);
         console.log(profile.email);
         if (profile.email === email && profile.password === password) {
-          console.log('matched');
           matchFound = true;
-          break;
-        }
+          loggedInPerson = {
+            name: profile.name,
+            place: profile.place,
+            age: profile.age,
+            email: profile.email,
+            education: profile.education,
+            phoneNumber: profile.phoneNumber
+        };
+        break;
       }
+    }
 
       if (matchFound) {
         // Redirect to the dashboard with email as query parameter
+        login(loggedInPerson);
+        console.log("Signed In")
+
         window.location.href = `/dashboard?email=${encodeURIComponent(email)}`; // Change '/dashboard' to your desired URL
       } else {
         setLoginError(true); // Set login error state to display the error message
