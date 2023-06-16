@@ -8,12 +8,19 @@ import { AuthContext } from '../Authentication/AuthContext';
 function Navigation({active, setActive}) {
     const { loggedInPerson } = useContext(AuthContext);
     console.log(loggedInPerson)
+    const getEmailFromURL = () => {
+        const searchParams = new URLSearchParams(window.location.search);
+        return searchParams.get('email');
+      };
+    
+    const email = getEmailFromURL();
+    var strippedEmail = email.replace(/@gmail\.com$/, "");
     return (
         <NavStyled>
             <div className="user-con">
                 <img src={images} alt="" />
                 <div className="text">
-                    <h2>PALS</h2>
+                    <h2>{strippedEmail}</h2>
                     <p>Transaction</p>
                 </div>
             </div>
