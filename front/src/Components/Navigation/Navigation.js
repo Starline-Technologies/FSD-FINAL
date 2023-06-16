@@ -12,7 +12,7 @@ function Navigation({active, setActive}) {
                 <img src={images} alt="" />
                 <div className="text">
                     <h2>PALS</h2>
-                    <p>Your Money</p>
+                    <p>Transaction</p>
                 </div>
             </div>
             <ul className="menu-items">

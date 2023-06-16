@@ -38,8 +38,8 @@ const SignInForm = () => {
       }
 
       if (matchFound) {
-        // Redirect to the dashboard or perform any other action
-        window.location.href = '/dashboard'; // Change '/dashboard' to your desired URL
+        // Redirect to the dashboard with email as query parameter
+        window.location.href = `/dashboard?email=${encodeURIComponent(email)}`; // Change '/dashboard' to your desired URL
       } else {
         setLoginError(true); // Set login error state to display the error message
       }

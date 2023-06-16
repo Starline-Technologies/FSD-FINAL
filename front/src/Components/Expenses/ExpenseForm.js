@@ -28,6 +28,7 @@ function ExpenseForm() {
         e.preventDefault()
         addExpense(inputState)
         setInputState({
+            
             title: '',
             amount: '',
             date: '',

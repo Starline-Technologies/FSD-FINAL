@@ -85,11 +85,11 @@ export const GlobalProvider = ({children}) => {
 
         return history.slice(0, 3)
     }
-    const createProfile = async () => {
-        const response = await axios.get(`${BASE_URL}get-incomes`)
-        setIncomes(response.data)
-        console.log(response.data)
-    }
+    // const createProfile = async () => {
+    //     const response = await axios.get(`${BASE_URL}get-incomes`)
+    //     setIncomes(response.data)
+    //     console.log(response.data)
+    // }
 
 
     return (
@@ -106,7 +106,7 @@ export const GlobalProvider = ({children}) => {
             totalExpenses,
             totalBalance,
             transactionHistory,
-            createProfile,
+            
             error,
             setError
         }}>

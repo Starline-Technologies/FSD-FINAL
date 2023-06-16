@@ -13,11 +13,18 @@ function Dashboard() {
         getIncomes()
         getExpenses()
     }, [])
+    const getEmailFromURL = () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      return searchParams.get('email');
+    };
+  
+    const email = getEmailFromURL();
 
     return (
         <DashboardStyled>
             <InnerLayout>
-                <h1>All Transactions</h1>
+            <h1>Welcome, {email}</h1> {/* Display the email */}
+                
                 <div className="stats-con">
                     <div className="chart-con">
                         <Chart />
@@ -144,4 +151,4 @@ const DashboardStyled = styled.div`
     }
 `;
 
-export default Dashboard
+export default Dashboard  
