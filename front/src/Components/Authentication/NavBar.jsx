@@ -42,11 +42,9 @@ const Navbar = () => {
           {/* <MenuItem onClick={(event) => handleRedirect(event, '/')}>Dashboard</MenuItem> */}
           <MenuItem onClick={(event) => handleRedirect(event, '/admin')}>Admin Login</MenuItem>
         </Menu>
-        <Link to="/dashboard" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <Typography variant="h6" style={{ fontFamily: 'fantasy', fontSize: '30px' }}>
-            SpendSense
-          </Typography>
-        </Link>
+        <Typography variant="h6" style={{ fontFamily: 'fantasy', fontSize: '30px', cursor: 'default' }}>
+          SpendSense
+        </Typography>
       </Toolbar>
     </AppBar>
   );
