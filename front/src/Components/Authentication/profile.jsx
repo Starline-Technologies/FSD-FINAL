@@ -5,9 +5,15 @@ const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  
   padding: 2rem;
   text-align: center;
+  background-color:#898F8C;
+  height:100vh;
+  
+  
+  
+  
 `;
 
 const ProfileDetails = styled.div`
@@ -35,7 +41,7 @@ function Profile(props) {
 
   return (
     <ProfileContainer>
-      <h1>Profile</h1>
+      <h1>PROFILE</h1>
       <ProfileDetails>
         <p>Email: <span>{email}</span></p>
         <p>Age: <span>{age}</span></p>

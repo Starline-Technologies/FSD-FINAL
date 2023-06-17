@@ -93,7 +93,7 @@ const DashboardStyled = styled.div`
                     grid-column: span 2;
                 }
                 .income, .expense, .balance{
-                    background: #FCF6F9;
+                    background: #6DA398;
                     border: 2px solid #FFFFFF;
                     box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
                     border-radius: 20px;
@@ -134,7 +134,7 @@ const DashboardStyled = styled.div`
                 }
             }
             .salary-item{
-                background: #FCF6F9;
+                background: #457385;
                 border: 2px solid #FFFFFF;
                 box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
                 padding: 1rem;

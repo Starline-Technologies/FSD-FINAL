@@ -1,4 +1,4 @@
-import { TextField, Button, Grid } from '@material-ui/core';
+import { TextField, Button, Grid, Snackbar } from '@material-ui/core';
 import './SignUpStyles.css';
 import axios from 'axios';
 import React, { useState } from 'react';
@@ -50,22 +50,24 @@ function SignupPage() {
 
   return (
     <div className='container'>
-      {errorAlert && <div className="alert error">Error: Failed to submit the form. Please try again.</div>}
-      {successAlert && (
-  <div
-    style={{
-      fontSize: '2rem',
-      color: 'white',
-      backgroundColor: 'rgba(0, 35, 102, 1)',
-      padding: '1.5rem',
-      borderRadius: '10px',
-      textAlign: 'center',
-      display: 'inline-block'
-    }}
-  >
-    Success: Form submitted successfully.
-  </div>
-)}
+      <Snackbar
+        open={errorAlert}
+        autoHideDuration={5000}
+        onClose={() => setErrorAlert(false)}
+        message="Error: Failed to submit the form. Please try again."
+        ContentProps={{
+          className: 'alert error',
+        }}
+      />
+      <Snackbar
+        open={successAlert}
+        autoHideDuration={5000}
+        onClose={() => setSuccessAlert(false)}
+        message="Success: Form submitted successfully."
+        ContentProps={{
+          className: 'alert success',
+        }}
+      />
       <form onSubmit={handleSubmit} className='form-container form-field' style={{ marginRight: '0px' }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
@@ -144,6 +146,7 @@ function SignupPage() {
             <TextField
               id="password"
               label="Password"
+              type='password'
               variant="outlined"
               fullWidth
               required

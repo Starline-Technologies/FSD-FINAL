@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
-import backgroundImage from './4.jpg';
+import backgroundImage from './12.jpg';
 import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     minHeight: '100vh',
     backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: 'size',
+    backgroundSize: 'cover',
   },
   form: {
     display: 'flex',

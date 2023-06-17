@@ -55,7 +55,7 @@ function Navigation({ active, setActive }) {
         <img src={images} alt="" />
         <div className="text">
           <h1>{name}</h1>
-          <h2>{age}</h2>
+          
         </div>
       </div>
       <ul className="menu-items">
@@ -73,7 +73,11 @@ function Navigation({ active, setActive }) {
         })}
       </ul>
       <div className="bottom-nav">
-        <li>{signout} Sign Out</li>
+      <li>
+                <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    {signout} Sign Out
+                </Link>
+                </li>
       </div>
     </NavStyled>
   );
