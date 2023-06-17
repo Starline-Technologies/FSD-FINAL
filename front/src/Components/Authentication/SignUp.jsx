@@ -9,6 +9,7 @@ function SignupPage() {
   const [age, setAge] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [education, setEducation] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [errorAlert, setErrorAlert] = useState(false);
@@ -16,6 +17,11 @@ function SignupPage() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (password !== confirmPassword) {
+      setErrorAlert(true); // Show error alert
+      return;
+    }
 
     const profileData = {
       name,
@@ -44,8 +50,16 @@ function SignupPage() {
     setAge('');
     setEmail('');
     setPassword('');
+    setConfirmPassword('');
     setEducation('');
     setPhoneNumber('');
+  };
+
+  const isPasswordValid = () => {
+    // Include your password validation logic here
+    // For example, check if the password contains at least one special character
+    const specialChars = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
+    return specialChars.test(password);
   };
 
   return (
@@ -54,7 +68,7 @@ function SignupPage() {
         open={errorAlert}
         autoHideDuration={5000}
         onClose={() => setErrorAlert(false)}
-        message="Error: Failed to submit the form. Please try again."
+        message={password !== confirmPassword ? "Error: Passwords do not match." : "Error: Failed to submit the form. Please try again."}
         ContentProps={{
           className: 'alert error',
         }}
@@ -153,6 +167,23 @@ function SignupPage() {
               margin="normal"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              error={password !== '' && !isPasswordValid()}
+              helperText={password !== '' && !isPasswordValid() ? 'Password must include special characters.' : ''}
+            />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <TextField
+              id="confirmPassword"
+              label="Confirm Password"
+              type='password'
+              variant="outlined"
+              fullWidth
+              required
+              margin="normal"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              error={confirmPassword !== '' && password !== confirmPassword}
+              helperText={confirmPassword !== '' && password !== confirmPassword ? 'Passwords do not match.' : ''}
             />
           </Grid>
           <Grid item xs={12}>
