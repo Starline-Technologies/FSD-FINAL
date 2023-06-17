@@ -5,11 +5,10 @@ import images from '../../img/images.png';
 import { signout } from '../../utils/Icons';
 import { menuItems } from '../../utils/menuItems';
 import { AuthContext } from '../Authentication/AuthContext';
-import { Link } from 'react-router-dom';
 
 function Navigation({ active, setActive }) {
   const history = useHistory();
-  const { loggedInPerson } = useContext(AuthContext);
+  const { loggedInPerson, setLoggedInPerson } = useContext(AuthContext);
 
   const getEmailFromURL = () => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -48,125 +47,122 @@ function Navigation({ active, setActive }) {
     history.push(
       `/profile?email=${email}&age=${age}&name=${name}&education=${education}&phoneNumber=${phoneNumber}`
     );
-    window.location.reload();
   };
 
   const handleSignOut = () => {
     // Perform sign out logic here (e.g., clearing session, updating state, etc.)
-
-    // Redirect to the root path
+    setLoggedInPerson(null);
     history.push('/');
-    window.location.reload()
+    window.location.reload();
   };
 
   return (
     <NavStyled>
       <div className="user-con" onClick={handleProfileClick}>
         <img src={images} alt="" />
-        <div className="text">
-          <h1>{name}</h1>
-        </div>
+        <h1>{name}</h1>
       </div>
       <ul className="menu-items">
-        {menuItems.map((item) => {
-          return (
-            <li
-              key={item.id}
-              onClick={() => setActive(item.id)}
-              className={active === item.id ? 'active' : ''}
-            >
-              {item.icon}
-              <span>{item.title}</span>
-            </li>
-          );
-        })}
+        {menuItems.map((item) => (
+          <li
+            key={item.id}
+            onClick={() => setActive(item.id)}
+            className={active === item.id ? 'active' : ''}
+          >
+            {item.icon}
+            <span>{item.title}</span>
+          </li>
+        ))}
       </ul>
-      <div className="bottom-nav">
-        <li>
-          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }} onClick={handleSignOut}>
-            {signout} Sign Out
-          </Link>
-        </li>
+      <div className="signout">
+        <a href="/" onClick={handleSignOut}>
+          {signout} Sign Out
+        </a>
       </div>
     </NavStyled>
   );
 }
 
 const NavStyled = styled.nav`
-  padding: 2rem 1.5rem;
-  width: 374px;
-  height: 100%;
-  background: rgba(252, 246, 249, 0.78);
-  border: 3px solid #ffffff;
-  backdrop-filter: blur(4.5px);
-  border-radius: 32px;
+  padding: 2rem;
+  width: 360px;
+  height: 100vh;
+  background: linear-gradient(to right, #3b3054, #1d1b32);
+  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 2rem;
 
   .user-con {
-    height: 100px;
     display: flex;
     align-items: center;
     gap: 1rem;
+    margin-bottom: 2rem;
 
     img {
-      width: 80px;
-      height: 80px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       object-fit: cover;
-      background: #fcf6f9;
-      border: 2px solid #ffffff;
-      padding: 0.2rem;
-      box-shadow: 0px 1px 17px rgba(0, 0, 0, 0.06);
+      border: 2px solid #fff;
+      box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.2);
     }
 
     h1 {
-      color: rgba(34, 34, 96, 1);
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin: 0;
+      color:#fff
     }
   }
 
   .menu-items {
-    flex: 1;
     display: flex;
     flex-direction: column;
+    gap: 1rem;
 
     li {
-      display: grid;
-      grid-template-columns: 40px auto;
+      display: flex;
       align-items: center;
-      margin: 0.6rem 0;
       font-weight: 500;
       cursor: pointer;
       transition: all 0.4s ease-in-out;
-      color: rgba(34, 34, 96, 0.6);
-      padding-left: 1rem;
-      position: relative;
 
       i {
-        color: rgba(34, 34, 96, 0.6);
-        font-size: 1.4rem;
-        transition: all 0.4s ease-in-out;
+        font-size: 1.2rem;
+        margin-right: 0.5rem;
+      }
+
+      &:hover {
+        transform: translateX(5px);
+      }
+
+      &.active {
+        color: #ff8c00;
+        font-weight: bold;
+
+        i {
+          color: #ff8c00;
+        }
       }
     }
   }
 
-  .active {
-    color: rgba(34, 34, 96, 1) !important;
-    i {
-      color: rgba(34, 34, 96, 1) !important;
-    }
+  .signout {
+    font-size: 2rem;
+    margin-top: auto;
+    margin-bottom: 110px;
 
-    &::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 4px;
-      height: 100%;
-      background: #222260;
-      border-radius: 0 10px 10px 0;
+    a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      margin-left: 1rem;
+
+      svg {
+        margin-right: 0rem;
+      }
     }
   }
 `;
