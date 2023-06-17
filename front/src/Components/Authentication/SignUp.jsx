@@ -51,7 +51,21 @@ function SignupPage() {
   return (
     <div className='container'>
       {errorAlert && <div className="alert error">Error: Failed to submit the form. Please try again.</div>}
-      {successAlert && <div className="alert success">Success: Form submitted successfully.</div>}
+      {successAlert && (
+  <div
+    style={{
+      fontSize: '2rem',
+      color: 'white',
+      backgroundColor: 'rgba(0, 35, 102, 1)',
+      padding: '1.5rem',
+      borderRadius: '10px',
+      textAlign: 'center',
+      display: 'inline-block'
+    }}
+  >
+    Success: Form submitted successfully.
+  </div>
+)}
       <form onSubmit={handleSubmit} className='form-container form-field' style={{ marginRight: '0px' }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>

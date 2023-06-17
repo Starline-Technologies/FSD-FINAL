@@ -15,6 +15,6 @@ router.post('/add-income', addIncome)
     .delete('/delete-expense/:id', deleteExpense)
     .post('/createProfile',createProfile)
     .get('/getProfiles',getProfiles)
-    .delete('/deleteProfile',deleteProfile)
+    .delete('/deleteProfile/:id',deleteProfile)
 
 module.exports = router

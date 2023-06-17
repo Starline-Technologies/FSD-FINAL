@@ -1,62 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function Profile({ email, age, name, education, phoneNumber }) {
-  return (
-    <ProfileStyled>
-      <h1>Profile</h1>
-      <div className="profile-details">
-        <div className="detail">
-          <label>Email:</label>
-          <span>{email}</span>
-        </div>
-        <div className="detail">
-          <label>Age:</label>
-          <span>{age}</span>
-        </div>
-        <div className="detail">
-          <label>Name:</label>
-          <span>{name}</span>
-        </div>
-        <div className="detail">
-          <label>Education:</label>
-          <span>{education}</span>
-        </div>
-        <div className="detail">
-          <label>Phone Number:</label>
-          <span>{phoneNumber}</span>
-        </div>
-      </div>
-    </ProfileStyled>
-  );
-}
-
-const ProfileStyled = styled.div`
+const ProfileContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
+  text-align: center;
+`;
 
-  h1 {
-    color: rgba(34, 34, 96, 1);
-    margin-bottom: 1rem;
+const ProfileDetails = styled.div`
+  margin-top: 2rem;
+
+  p {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size:2rem;
   }
 
-  .profile-details {
-    display: grid;
-    grid-gap: 1rem;
-  }
-
-  .detail {
-    display: grid;
-    grid-template-columns: 100px auto;
-    align-items: center;
-
-    label {
-      font-weight: bold;
-    }
-
-    span {
-      color: rgba(34, 34, 96, 0.6);
-    }
+  span {
+    color: #666;
   }
 `;
+
+function Profile(props) {
+  const searchParams = new URLSearchParams(props.location.search);
+  const email = searchParams.get('email');
+  const age = searchParams.get('age');
+  const name = searchParams.get('name');
+  const education = searchParams.get('education');
+  const phoneNumber = searchParams.get('phoneNumber');
+
+  return (
+    <ProfileContainer>
+      <h1>Profile</h1>
+      <ProfileDetails>
+        <p>Email: <span>{email}</span></p>
+        <p>Age: <span>{age}</span></p>
+        <p>Name: <span>{name}</span></p>
+        <p>Education: <span>{education}</span></p>
+        <p>Phone Number: <span>{phoneNumber}</span></p>
+      </ProfileDetails>
+    </ProfileContainer>
+  );
+}
 
 export default Profile;
