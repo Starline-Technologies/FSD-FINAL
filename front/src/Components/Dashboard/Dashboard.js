@@ -47,7 +47,7 @@ function Dashboard() {
   return (
     <DashboardStyled>
       <InnerLayout>
-        <h1>Welcome, {email}</h1>
+        {/* <h1>Welcome, {email}</h1> */}
 
         <div className="stats-con">
           <div className="chart-con">
@@ -128,11 +128,13 @@ const DashboardStyled = styled.div`
         }
 
         .balance {
-          grid-column: 2 / 4;
+          grid-column: 1 /5;
           display: flex;
           flex-direction: column;
-          justify-content: center;
-          align-items: center;
+       
+          align-items:center;
+          background-color:#A1BDBD;
+          
           p {
             color: var(--color-green);
             opacity: 0.6;
@@ -171,6 +173,10 @@ const DashboardStyled = styled.div`
         }
       }
     }
+  }
+
+  img.profile-icon {
+    cursor: pointer;
   }
 `;
 

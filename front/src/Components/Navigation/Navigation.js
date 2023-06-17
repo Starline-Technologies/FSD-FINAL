@@ -47,6 +47,7 @@ function Navigation({ active, setActive }) {
     history.push(
       `/profile?email=${email}&age=${age}&name=${name}&education=${education}&phoneNumber=${phoneNumber}`
     );
+    window.location.reload()
   };
 
   const handleSignOut = () => {
@@ -84,14 +85,15 @@ function Navigation({ active, setActive }) {
 }
 
 const NavStyled = styled.nav`
-  padding: 2rem;
-  width: 360px;
-  height: 100vh;
-  background: linear-gradient(to right, #3b3054, #1d1b32);
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+padding: 2rem;
+width: 360px;
+height: 86vh;
+background: linear-gradient(to right, #3b3054, #1d1b32);
+color: #fff;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+border-radius: 50px; /* Added border-radius to make the corners rounder */
 
   .user-con {
     display: flex;
@@ -106,6 +108,7 @@ const NavStyled = styled.nav`
       object-fit: cover;
       border: 2px solid #fff;
       box-shadow: 0px 1px 8px rgba(0, 0, 0, 0.2);
+      cursor:pointer;
     }
 
     h1 {
@@ -148,6 +151,7 @@ const NavStyled = styled.nav`
     }
   }
 
+
   .signout {
     font-size: 2rem;
     margin-top: auto;
@@ -163,6 +167,7 @@ const NavStyled = styled.nav`
       svg {
         margin-right: 0rem;
       }
+     
     }
   }
 `;
