@@ -8,7 +8,7 @@ const ProfileContainer = styled.div`
   
   padding: 2rem;
   text-align: center;
-  background-color:#898F8C;
+  background-color:#FFFFF;
   height:100vh;
   
   

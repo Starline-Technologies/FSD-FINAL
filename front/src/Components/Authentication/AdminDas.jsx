@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Alert from '@material-ui/lab/Alert';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,21 +27,24 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     marginBottom: theme.spacing(1),
   },
+  signoutButton: {
+    position: 'absolute',
+    right: theme.spacing(2),
+    bottom: theme.spacing(2),
+  },
 }));
 
 const AdminDas = () => {
   const classes = useStyles();
+  const history = useHistory();
   const [profiles, setProfiles] = useState([]);
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    // Fetch profiles from the API initially
     fetchProfiles();
 
-    // Set up an interval to fetch profiles every 10 seconds (adjust as needed)
     const interval = setInterval(fetchProfiles, 10000);
 
-    // Clear the interval on component unmount
     return () => clearInterval(interval);
   }, [profiles]);
 
@@ -64,6 +68,11 @@ const AdminDas = () => {
     }
   };
 
+  const signOut = () => {
+    history.push('/');
+    window.location.reload()
+  };
+
   return (
     <div className={classes.root}>
       <Typography variant="h5">Admin Dashboard</Typography>
@@ -72,6 +81,7 @@ const AdminDas = () => {
           Profile deleted successfully.
         </Alert>
       )}
+      
       {profiles.length === 0 ? (
         <Typography>No profiles found.</Typography>
       ) : (
@@ -102,8 +112,12 @@ const AdminDas = () => {
               ))}
             </tbody>
           </table>
+      
         </div>
       )}
+      <Button variant="contained" color="primary" onClick={signOut} className={classes.signoutButton}> 
+        Sign Out
+      </Button>
     </div>
   );
 };

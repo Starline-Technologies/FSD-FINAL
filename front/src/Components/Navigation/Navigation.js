@@ -45,8 +45,18 @@ function Navigation({ active, setActive }) {
   const strippedEmail = decodeURIComponent(email.replace(/\+/g, ' '));
 
   const handleProfileClick = () => {
-    history.push(`/profile?email=${email}&age=${age}&name=${name}&education=${education}&phoneNumber=${phoneNumber}`);
+    history.push(
+      `/profile?email=${email}&age=${age}&name=${name}&education=${education}&phoneNumber=${phoneNumber}`
+    );
     window.location.reload();
+  };
+
+  const handleSignOut = () => {
+    // Perform sign out logic here (e.g., clearing session, updating state, etc.)
+
+    // Redirect to the root path
+    history.push('/');
+    window.location.reload()
   };
 
   return (
@@ -55,7 +65,6 @@ function Navigation({ active, setActive }) {
         <img src={images} alt="" />
         <div className="text">
           <h1>{name}</h1>
-          
         </div>
       </div>
       <ul className="menu-items">
@@ -73,11 +82,11 @@ function Navigation({ active, setActive }) {
         })}
       </ul>
       <div className="bottom-nav">
-      <li>
-                <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                    {signout} Sign Out
-                </Link>
-                </li>
+        <li>
+          <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }} onClick={handleSignOut}>
+            {signout} Sign Out
+          </Link>
+        </li>
       </div>
     </NavStyled>
   );
@@ -115,10 +124,6 @@ const NavStyled = styled.nav`
 
     h1 {
       color: rgba(34, 34, 96, 1);
-    }
-
-    h2 {
-      color: rgba(34, 34, 96, 0.6);
     }
   }
 
