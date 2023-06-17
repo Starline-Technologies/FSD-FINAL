@@ -75,7 +75,9 @@ const AdminDas = () => {
 
   return (
     <div className={classes.root}>
-      <Typography variant="h5">Admin Dashboard</Typography>
+      <Typography variant="h5" style={{fontFamily:'sans-serif',fontSize:'2rem'}}>Admin Dashboard</Typography>
+      <br />
+      <hr />
       {showAlert && (
         <Alert severity="success" onClose={() => setShowAlert(false)}>
           Profile deleted successfully.
