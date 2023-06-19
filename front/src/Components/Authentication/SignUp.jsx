@@ -34,7 +34,7 @@ function SignupPage() {
     };
 
     try {
-      const response = await axios.post('http://localhost:8080/api/v1/createProfile', profileData);
+      const response = await axios.post('https://spendsence.onrender.com/api/v1/createProfile', profileData);
       console.log(response.data); // Handle the response from the server
       setSuccessAlert(true); // Show success alert
       clearFields(); // Clear input fields
@@ -191,6 +191,7 @@ function SignupPage() {
               Submit
             </Button>
           </Grid>
+          <a href="terms.txt" download target="_blank">Terms and Conditions</a>
         </Grid>
       </form>
     </div>

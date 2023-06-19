@@ -60,7 +60,7 @@ const AdminDas = () => {
 
   const deleteProfile = async (profileId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/v1/deleteProfile/${profileId}`);
+      await axios.delete(`https://spendsence.onrender.com/api/v1/deleteProfile/${profileId}`);
       setShowAlert(true);
       fetchProfiles();
     } catch (error) {

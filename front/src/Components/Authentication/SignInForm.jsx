@@ -21,7 +21,7 @@ const SignInForm = () => {
     try {
       setLoading(true);
 
-      const response = await axios.get('http://localhost:8080/api/v1/getProfiles');
+      const response = await axios.get('https://spendsence.onrender.com/api/v1/getProfiles');
 
       const profileData = response.data;
       const profiles = Object.values(profileData);
@@ -103,6 +103,9 @@ const SignInForm = () => {
               <Button type="submit" variant="contained" color="primary" disabled={loading}>
                 {loading ? 'Loading...' : 'Sign In'}
               </Button>
+              <p style={{ marginTop: '10px' }}>
+                Don't have an account? <a href='/signup'>Sign up</a> 
+              </p>
             </FormControl>
           </Grid>
         </Grid>

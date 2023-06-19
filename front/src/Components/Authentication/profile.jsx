@@ -78,6 +78,7 @@ const Message = styled.div`
 function Profile(props) {
   const searchParams = new URLSearchParams(props.location.search);
   const email = searchParams.get('email');
+<<<<<<< HEAD
 
   const [profiles, setProfiles] = useState([]);
   console.log(profiles)
@@ -189,6 +190,17 @@ function Profile(props) {
       setSuccessMessage('');
       setErrorMessage('No matching profile found.');
     }
+=======
+  const age = searchParams.get('age');
+  const name = searchParams.get('name');
+  const education = searchParams.get('education');
+  const phoneNumber = searchParams.get('phoneNumber');
+  const handleGoBack = () => {
+    
+    window.location.href=`/dashboard?email=${email}&age=${age}&name=${name}&education=${education}&phoneNumber=${phoneNumber}`
+    
+    
+>>>>>>> 3036ad39545396dc929353d8d5546ffa1f365427
   };
 
   return (
@@ -196,6 +208,7 @@ function Profile(props) {
       <ProfileBox>
         <h1>{updatedName}</h1>
         <ProfileDetails>
+<<<<<<< HEAD
           {!isLoading && (
             <>
               <FormField>
@@ -227,6 +240,28 @@ function Profile(props) {
               {errorMessage && <Message>{errorMessage}</Message>}
             </>
           )}
+=======
+          <div style={{ textAlign: 'left' }}>
+          <p>Email: <span>{email}</span></p>
+          <p>Age: <span>{age}</span></p>
+          <p>Education: <span>{education}</span></p>
+          <p>Phone Number: <span>{phoneNumber}</span></p>
+
+          </div>
+          
+          <button style={{width: '170px',
+    height: '60px',
+    fontPalette: "dark",
+    fontSize: '18px',
+    background: '#f2f2f2',
+    border: '#f2f2f2',
+    borderRadius: '50px',
+    color: 'darksalmon',
+    outline: '#333333',
+    cursor: 'pointer',
+    transition: 'all 0.4s'}} onClick={handleGoBack}>Go Back</button>
+          
+>>>>>>> 3036ad39545396dc929353d8d5546ffa1f365427
         </ProfileDetails>
         <button
           style={{
