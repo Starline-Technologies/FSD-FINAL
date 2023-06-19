@@ -1,198 +1,254 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import { useGlobalContext } from '../../context/globalContext';
-import Button from '../Button/Button';
-import { plus } from '../../utils/Icons';
 
-function ExpenseForm() {
-  const { addExpense, error, setError } = useGlobalContext();
-  const [inputState, setInputState] = useState({
-    email: '',
-    title: '',
-    amount: '',
-    date: '',
-    category: '',
-    description: '',
-  });
+const API_URL = 'http://localhost:8080/api/v1/';
 
-  useEffect(() => {
-    setInputState((prevState) => ({
-      ...prevState,
-      email: getEmailFromURL(),
-    }));
-  }, []);
-
-  const getEmailFromURL = () => {
-    const searchParams = new URLSearchParams(window.location.search);
-    return searchParams.get('email');
-  };
-
-  const { email, title, amount, date, category, description } = inputState;
-
-  const handleInput = (name) => (e) => {
-    setInputState({ ...inputState, [name]: e.target.value });
-    setError('');
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addExpense(inputState);
-    setInputState({
-      email: 'email',
-      title: '',
-      amount: '',
-      date: '',
-      category: '',
-      description: '',
-    });
-  };
-
-  return (
-    <ExpenseFormStyled onSubmit={handleSubmit}>
-      {error && <p className='error'>{error}</p>}
-      <div className='input-control'>
-        <input
-          type='text'
-          value={title}
-          name={'title'}
-          placeholder='Expense Title'
-          onChange={handleInput('title')}
-        />
-      </div>
-      <div className='input-control'>
-        <input
-          value={amount}
-          type='text'
-          name={'amount'}
-          placeholder={'Expense Amount'}
-          onChange={handleInput('amount')}
-        />
-      </div>
-      <div className='input-control'>
-        <DatePicker
-          id='date'
-          placeholderText='Enter A Date'
-          selected={date}
-          dateFormat='dd/MM/yyyy'
-          onChange={(date) => {
-            setInputState({ ...inputState, date: date });
-          }}
-        />
-      </div>
-      <div className='selects input-control'>
-        <select
-          required
-          value={category}
-          name='category'
-          id='category'
-          onChange={handleInput('category')}
-        >
-          <option value='' disabled>
-            Select Option
-          </option>
-          <option value='education'>Education</option>
-          <option value='groceries'>Groceries</option>
-          <option value='health'>Health</option>
-          <option value='subscriptions'>Subscriptions</option>
-          <option value='takeaways'>Takeaways</option>
-          <option value='clothing'>Clothing</option>
-          <option value='travelling'>Travelling</option>
-          <option value='other'>Other</option>
-        </select>
-      </div>
-      <div className='input-control'>
-        <textarea
-          name='description'
-          value={description}
-          placeholder='Add A Reference'
-          id='description'
-          cols='30'
-          rows='4'
-          onChange={handleInput('description')}
-        ></textarea>
-      </div>
-      <div className='submit-btn'>
-        <Button
-          name='Add Expense'
-          icon={plus}
-          bPad='.8rem 1.6rem'
-          bRad='30px'
-          bg='var(--color-gradient)'
-          color='var(--color-white)'
-        />
-      </div>
-    </ExpenseFormStyled>
-  );
-}
-
-const ExpenseFormStyled = styled.form`
+const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  background: linear-gradient(45deg, #ffffff, #e8f5ff);
+  align-items: center;
+  margin-top: 2rem;
+  height: 100vh;
+  background-color: #f2f2f2;
+`;
+
+const ProfileBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-  animation: fadeIn 0.5s ease;
+  text-align: center;
+  background-color: #ffffff;
+  border: 2px solid #333333;
+  border-radius: 8px;
+`;
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+const ProfileDetails = styled.div`
+  margin-top: 2rem;
+
+  p {
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
   }
 
-  input,
-  textarea,
-  select {
-    font-family: inherit;
-    font-size: inherit;
-    outline: none;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.9);
-    resize: none;
-    box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-    color: var(--color-text);
-    &::placeholder {
-      color: var(--color-text-placeholder);
-    }
-  }
-
-  .input-control {
-    input {
-      width: 100%;
-    }
-  }
-
-  .selects {
-    display: flex;
-    justify-content: flex-end;
-    select {
-      color: var(--color-text);
-      background-color: rgba(255, 255, 255, 0.9);
-      &:focus,
-      &:active {
-        color: var(--color-text);
-      }
-    }
-  }
-
-  .submit-btn {
-    button {
-      box-shadow: 0px 1px 15px rgba(0, 0, 0, 0.06);
-      &:hover {
-        background: linear-gradient(45deg, #0099ff, #00ccff) !important;
-      }
-    }
+  span {
+    color: #666;
   }
 `;
 
-export default ExpenseForm;
+const FormField = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+
+  label {
+    width: 100px;
+    margin-right: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  input {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #333333;
+    border-radius: 4px;
+  }
+`;
+
+const UpdateButton = styled.button`
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #333333;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+const Message = styled.div`
+  margin-top: 1rem;
+  color: ${({ success }) => (success ? 'green' : 'red')};
+`;
+
+function Profile(props) {
+  const searchParams = new URLSearchParams(props.location.search);
+  const email = searchParams.get('email');
+
+  const [profiles, setProfiles] = useState([]);
+  console.log(profiles)
+  const [updatedName, setUpdatedName] = useState('');
+  console.log(updatedName)
+  const [updatedEmail, setUpdatedEmail] = useState('');
+  const [updatedAge, setUpdatedAge] = useState('');
+  const [updatedEducation, setUpdatedEducation] = useState('');
+  const [updatedPhoneNumber, setUpdatedPhoneNumber] = useState('');
+  console.log(updatedPhoneNumber)
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  
+
+  const history = useHistory();
+
+  useEffect(() => {
+    fetch(`${API_URL}/getProfiles`)
+      .then((response) => response.json())
+      .then((data) => {
+        const profilesArray = Array.isArray(data) ? data : [data]; // Convert to array if not already an array
+        console.log(profilesArray)
+        setProfiles(profilesArray);
+        console.log(profiles)
+        const arr = profilesArray[0].data
+
+        const matchingProfile = arr.find((profile) => profile.email === email);
+        console.log("Not Found")
+        if (matchingProfile) {
+          console.log("FOUND")
+          const { name, email, age, education, phoneNumber } = matchingProfile;
+          setUpdatedName(name);
+          setUpdatedEmail(email);
+          setUpdatedAge(age);
+          setUpdatedEducation(education);
+          setUpdatedPhoneNumber(phoneNumber);
+        }
+      })
+      .catch((error) => {
+        console.error('Error retrieving profiles:', error);
+        setErrorMessage('Failed to retrieve profiles. Please try again.');
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
+  const handleGoBack = () => {
+    const dashboardUrl = `/dashboard?email=${encodeURIComponent(updatedEmail)}&age=${encodeURIComponent(updatedAge)}&name=${encodeURIComponent(updatedName)}&education=${encodeURIComponent(updatedEducation)}&phoneNumber=${encodeURIComponent(updatedPhoneNumber)}`;
+    window.location.href = dashboardUrl;
+  };
+  
+  const handleUpdateProfile = () => {
+    let matchingProfile = false;
+
+    for (const profile of profiles[0].data) {
+      if (profile.email === updatedEmail) {
+        matchingProfile = profile;
+        break;
+      }
+    }
+
+    if (matchingProfile) {
+      const { _id, place, password } = matchingProfile;
+
+      const updatedProfile = {
+        _id,
+        name: updatedName,
+        email: updatedEmail,
+        age: updatedAge,
+        education: updatedEducation,
+        phoneNumber: updatedPhoneNumber,
+        place,
+        password
+      };
+
+      fetch(`${API_URL}update-profile/${_id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedProfile),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log('Profile updated:', data);
+
+          // Update the state of profiles with the updated profile
+          setProfiles((prevProfiles) => {
+            const updatedProfiles = prevProfiles.map((profile) => {
+              if (profile._id === _id) {
+                return { ...profile, ...updatedProfile };
+              }
+              return profile;
+            });
+            return updatedProfiles;
+          });
+
+          setSuccessMessage('Profile updated successfully.');
+          setErrorMessage('');
+        })
+        .catch((error) => {
+          console.error('Error updating profile:', error);
+          setSuccessMessage('');
+          setErrorMessage('Failed to update profile. Please try again.');
+        });
+    } else {
+      setSuccessMessage('');
+      setErrorMessage('No matching profile found.');
+    }
+  };
+
+  return (
+    <ProfileContainer>
+      <ProfileBox>
+        <h1>{updatedName}</h1>
+        <ProfileDetails>
+          {!isLoading && (
+            <>
+              <FormField>
+                <label>Name:</label>
+                <input type="text" value={updatedName} onChange={(e) => setUpdatedName(e.target.value)} />
+              </FormField>
+              <FormField>
+                <label>Email:</label>
+                <input type="text" value={updatedEmail} onChange={(e) => setUpdatedEmail(e.target.value)} />
+              </FormField>
+              <FormField>
+                <label>Age:</label>
+                <input type="text" value={updatedAge} onChange={(e) => setUpdatedAge(e.target.value)} />
+              </FormField>
+              <FormField>
+                <label>Education:</label>
+                <input type="text" value={updatedEducation} onChange={(e) => setUpdatedEducation(e.target.value)} />
+              </FormField>
+              <FormField>
+                <label>Phone Number:</label>
+                <input
+                  type="text"
+                  value={updatedPhoneNumber}
+                  onChange={(e) => setUpdatedPhoneNumber(e.target.value)}
+                />
+              </FormField>
+              <UpdateButton onClick={handleUpdateProfile}>Update</UpdateButton>
+              {successMessage && <Message success>{successMessage}</Message>}
+              {errorMessage && <Message>{errorMessage}</Message>}
+            </>
+          )}
+        </ProfileDetails>
+        <button
+          style={{
+            width: '170px',
+            height: '60px',
+            fontPalette: 'dark',
+            fontSize: '18px',
+            background: '#f2f2f2',
+            border: '#f2f2f2',
+            borderRadius: '50px',
+            color: 'darksalmon',
+            outline: '#333333',
+            cursor: 'pointer',
+            transition: 'all 0.4s',
+          }}
+          onClick={handleGoBack}
+        >
+          Go Back
+        </button>
+      </ProfileBox>
+    </ProfileContainer>
+  );
+}
+
+export default Profile;
