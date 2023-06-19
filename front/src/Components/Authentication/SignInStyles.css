@@ -1,7 +1,5 @@
-
-.shape{
-
-    display: flex;
+.shape {
+  display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -9,74 +7,78 @@
 }
 
 .signin-form {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1rem;
-    background-color: #f5f5f5;
-    border-radius: 5px;
-    box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);
+}
+
+.signin-form form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 3px 5px 2px rgba(255, 105, 135, 0.3);
+}
+
+.signin-form input[type='email'],
+.signin-form input[type='password'] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.signin-form button {
+  display: grid;
+  gap: 1rem;
+  padding: 0.5rem;
+  background-color: #007bff;
+  border-radius: 5px;
+  color: #ffffff;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.signin-form button:hover {
+  background-color: #0056b3;
+}
+
+/* Uncomment the following code if you want to include the spinning animation */
+/*
+.signin-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.signin-form {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #3498db;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
-  
-  .signin-form form {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-    padding: 1rem;
-    background-color: #ffffff;
-    border-radius: 5px;
-    box-shadow: 0 3px 5px 2px rgba(255, 105, 135, .3);
+
+  100% {
+    transform: rotate(360deg);
   }
-  
-  .signin-form input[type='email'],
-  .signin-form input[type='password'] {
-    width: 100%;
-    padding: 0.5rem;
-    margin-bottom: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  
-  .signin-form Button {
-    display: grid;
-    gap: 1rem;
-    padding: 0.5rem;
-    background-color: #007bff;
-    border-radius: 5px;
-    color: #ffffff;
-    font-weight: bold;
-    text-transform: uppercase;
-    cursor: pointer;
-  }
-  
-  .signin-form Button:hover {
-    background-color: #0056b3;
-  }
-  /* .signin-form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .signin-form {
-    width: 40px;
-    height: 40px;
-    border: 4px solid #f3f3f3;
-    border-top: 4px solid #3498db;
-    border-radius: 50%;
-    animation: spin 2s linear infinite;
-  }
-  
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-   */
+}
+*/
+
 
   
