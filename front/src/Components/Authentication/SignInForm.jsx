@@ -17,18 +17,18 @@ const SignInForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+  
     try {
       setLoading(true);
-
+  
       const response = await axios.get('https://spendsence.onrender.com/api/v1/getProfiles');
-
+  
       const profileData = response.data;
       const profiles = Object.values(profileData);
-
+  
       let matchFound = false;
       let loggedInPerson = null;
-
+  
       for (const profile of profiles[1]) {
         if (profile.email === email && profile.password === password) {
           matchFound = true;
@@ -42,19 +42,28 @@ const SignInForm = () => {
           };
           break;
         }
+        
+      }
+      if(email === 'admin@gmail.com' && password === 'password'){
+        matchFound = true;
       }
 
+  
       if (matchFound) {
-        login(loggedInPerson);
-
-        const encodedEmail = encodeURIComponent(loggedInPerson.email);
-        const encodedAge = encodeURIComponent(loggedInPerson.age);
-        const encodedPlace = encodeURIComponent(loggedInPerson.place);
-        const encodedName = encodeURIComponent(loggedInPerson.name);
-        const encodedEducation = encodeURIComponent(loggedInPerson.education);
-        const encodedPhoneNumber = encodeURIComponent(loggedInPerson.phoneNumber);
-
-        window.location.href = `/dashboard?email=${encodedEmail}&age=${encodedAge}&place=${encodedPlace}&name=${encodedName}&education=${encodedEducation}&phoneNumber=${encodedPhoneNumber}`;
+        if (email === 'admin@gmail.com' && password === 'password') {
+          window.location.href = '/admin/dashboard';
+        } else {
+          login(loggedInPerson);
+  
+          const encodedEmail = encodeURIComponent(loggedInPerson.email);
+          const encodedAge = encodeURIComponent(loggedInPerson.age);
+          const encodedPlace = encodeURIComponent(loggedInPerson.place);
+          const encodedName = encodeURIComponent(loggedInPerson.name);
+          const encodedEducation = encodeURIComponent(loggedInPerson.education);
+          const encodedPhoneNumber = encodeURIComponent(loggedInPerson.phoneNumber);
+  
+          window.location.href = `/dashboard?email=${encodedEmail}&age=${encodedAge}&place=${encodedPlace}&name=${encodedName}&education=${encodedEducation}&phoneNumber=${encodedPhoneNumber}`;
+        }
       } else {
         setLoginError(true);
       }
