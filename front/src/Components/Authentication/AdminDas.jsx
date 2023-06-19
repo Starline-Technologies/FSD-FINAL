@@ -50,7 +50,7 @@ const AdminDas = () => {
 
   const fetchProfiles = async () => {
     try {
-      const response = await axios.get('http://localhost:8080/api/v1/getProfiles');
+      const response = await axios.get('https://spendsence.onrender.com/api/v1/getProfiles');
       const profilesArray = Object.values(response.data);
       setProfiles(profilesArray);
     } catch (error) {
