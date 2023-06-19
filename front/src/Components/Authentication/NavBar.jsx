@@ -40,7 +40,7 @@ const Navbar = () => {
           <MenuItem onClick={(event) => handleRedirect(event, '/')}>Login</MenuItem>
           <MenuItem onClick={(event) => handleRedirect(event, '/signup')}>Sign Up</MenuItem>
           {/* <MenuItem onClick={(event) => handleRedirect(event, '/')}>Dashboard</MenuItem> */}
-          <MenuItem onClick={(event) => handleRedirect(event, '/admin')}>Admin Login</MenuItem>
+          {/* <MenuItem onClick={(event) => handleRedirect(event, '/admin')}>Admin Login</MenuItem> */}
         </Menu>
         <Typography variant="h6" style={{ fontFamily: 'fantasy', fontSize: '30px', cursor: 'default' }}>
           SpendSense
