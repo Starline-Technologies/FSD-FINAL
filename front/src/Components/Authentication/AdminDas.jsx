@@ -17,10 +17,13 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     overflow: "auto",
     maxHeight: "500px",
+    
+    
   },
   tableContainer: {
     display: "flex",
     justifyContent: "center",
+    
   },
   table: {
     width: "80%",
@@ -28,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: theme.spacing(2),
     boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
     textAlign: "center",
+    
     ...flexbox.center, // Apply flexbox utility class to center the table
   },
   userContainer: {
@@ -73,7 +77,7 @@ const AdminDas = () => {
   const deleteProfile = async (profileId) => {
     try {
       await axios.delete(
-        `https://spendsence.onrender.com/api/v1/deleteProfile/${profileId}`
+        `https://spendsence.onrender.com/api/v1/delete-profile/${profileId}`
       );
       setShowAlert(true);
       fetchProfiles();
