@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { dateFormat } from '../../utils/dateFormat';
-import { bitcoin, book, calendar, card, circle, clothing, comment, dollar, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt, rupee } from '../../utils/Icons';
+import { bitcoin, book, calendar, card, circle, clothing, comment, dollar, food, freelance, medical, money, piggy, stocks, takeaway, trash, tv, users, yt, rupee ,update} from '../../utils/Icons';
 import Button from '../Button/Button';
 
 function IncomeItem({
@@ -92,6 +92,17 @@ function IncomeItem({
               hColor={'var(--color-green)'}
               onClick={() => deleteItem(id)}
             />
+            <Button
+          icon={update}
+          bPad={'1rem'}
+          bRad={'50%'}
+          bg={'var(--primary-color)'}
+          color={'#fff'}
+          iColor={'#fff'}
+          hColor={'var(--color-green)'}
+         
+        />
+            
           </div>
         </div>
       </div>

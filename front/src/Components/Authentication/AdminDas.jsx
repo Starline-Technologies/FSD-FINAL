@@ -126,7 +126,7 @@ const AdminDas = () => {
     <div className={classes.root}>
       <Typography
         variant="h5"
-        style={{ fontFamily: "Josefin Sans",fontWeight: 'bold', fontSize: "2rem" ,}}
+        style={{ fontFamily: "sans-serif",fontWeight: 'bold', fontSize: "2rem" ,}}
       >
         Admin Dashboard
       </Typography>

@@ -30,3 +30,4 @@ export const circle = <i className="fas fa-circle"></i>;
 export const rupee = <i className="fas fa-rupee-sign"></i>;
 export const calender = <i className="fas fa-calendar"></i>;
 
+export const update = <i className="fa-regular fa-pen-to-square"></i>;
