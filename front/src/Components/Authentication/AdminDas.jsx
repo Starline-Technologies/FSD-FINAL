@@ -126,7 +126,7 @@ const AdminDas = () => {
     <div className={classes.root}>
       <Typography
         variant="h5"
-        style={{ fontFamily: "sans-serif", fontSize: "2rem" }}
+        style={{ fontFamily: "Josefin Sans",fontWeight: 'bold', fontSize: "2rem" ,}}
       >
         Admin Dashboard
       </Typography>
@@ -145,10 +145,13 @@ const AdminDas = () => {
           <Paper elevation={3} className={classes.table}>
             <table>
               <thead>
+                
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
-                  <th>Actions</th>
+                  <th>Delete</th>
+                  <th>Block</th>
+
                 </tr>
               </thead>
               <tbody>
@@ -168,8 +171,10 @@ const AdminDas = () => {
                         color="secondary"
                         onClick={() => deleteProfile(profile._id)}
                       >
-                        <DeleteIcon />
+                        <DeleteIcon />    
                       </IconButton>
+                      </td>
+                      <td>
                       <IconButton
                         color="secondary"
                         onClick={() => blockProfile(profile._id)}

@@ -191,7 +191,7 @@ function SignupPage() {
               Submit
             </Button>
           </Grid>
-          <a href="terms.pdf" download target="_blank">Terms and Conditions</a>
+          <a href="terms.pdf" target="_blank" rel="noopener noreferrer" download>Terms and Conditions</a>
         </Grid>
       </form>
     </div>
